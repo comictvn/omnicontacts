@@ -37,7 +37,12 @@ module OmniContacts
     def host_url_from_rack_env env
       port = ((env["SERVER_PORT"] == 80) && "") || ":#{env['SERVER_PORT']}"
       host = (env["HTTP_HOST"]) || (env["SERVER_NAME"] + port)
-      "#{scheme(env)}://#{host}"
+
+      if host.to_s == '127.0.0.1:5525'
+        return "http://xcitelife.rubyspace.net"
+      else
+        "#{scheme(env)}://#{host}"
+      end
     end
 
     def scheme env
