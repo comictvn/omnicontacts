@@ -20,7 +20,7 @@ module OmniContacts
       # Calculates the URL the user has to be redirected to in order to authorize
       # the application to access his contacts list.
       def authorization_url
-        "https://" + auth_host + authorize_path + "?" + authorize_url_params
+        "http://" + auth_host + authorize_path + "?" + authorize_url_params
       end
 
       private
