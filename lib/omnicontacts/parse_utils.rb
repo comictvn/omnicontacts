@@ -43,9 +43,11 @@ module OmniContacts
       username, domain = *(email.split('@'))
       return nil if username.nil? or domain.nil?
       gmail_base_url = "https://profiles.google.com/s2/photos/profile/"
-      yahoo_base_url = "https://img.msg.yahoo.com/avatar.php?yids="
+      yahoo_base_url = "http://www.imvisible.info/getAvatar.php?id="
       if domain.include?('gmail')
-        image_url = gmail_base_url + username
+        response = Net::HTTP.get_response(URI.parse("https://picasaweb.google.com/data/entry/api/user/#{username}?alt=json"))
+        data = JSON.parse(response.body)
+        image_url = data['entry']['gphoto$thumbnail']['$t']
       elsif domain.include?('yahoo')
         image_url = yahoo_base_url + username
       end
